@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0c0f">
+  <title>Фотогалерея</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Фотогалерея</h1>
+      <p id="galleryInfo">Загрузка фотографий…</p>
+    </div>
+
+    <div class="header-actions">
+      <button class="button secondary" id="selectAllBtn" type="button">Выбрать все</button>
+      <button class="button primary" id="downloadSelectedBtn" type="button" disabled>
+        Скачать выбранные <span id="selectedCount"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="gallery" id="gallery" aria-label="Галерея фотографий"></section>
+
+    <div class="empty-state" id="emptyState" hidden>
+      <h2>Фотографии не найдены</h2>
+      <p>Добавьте файлы в папку <code>photos</code> и укажите их имена в <code>script.js</code>.</p>
+    </div>
+  </main>
+
+  <div class="viewer" id="viewer" hidden>
+    <div class="viewer-backdrop" data-close-viewer></div>
+
+    <div class="viewer-toolbar">
+      <div class="viewer-counter" id="viewerCounter"></div>
+      <div class="viewer-actions">
+        <button class="icon-button" id="zoomOutBtn" type="button" title="Уменьшить">−</button>
+        <button class="zoom-value" id="zoomResetBtn" type="button" title="Сбросить масштаб">100%</button>
+        <button class="icon-button" id="zoomInBtn" type="button" title="Увеличить">+</button>
+        <a class="button primary viewer-download" id="viewerDownloadBtn" download>Скачать</a>
+        <button class="icon-button close-button" type="button" data-close-viewer title="Закрыть">×</button>
+      </div>
+    </div>
+
+    <button class="nav-button prev" id="prevBtn" type="button" aria-label="Предыдущее фото">‹</button>
+
+    <div class="viewer-stage" id="viewerStage">
+      <img id="viewerImage" alt="">
+    </div>
+
+    <button class="nav-button next" id="nextBtn" type="button" aria-label="Следующее фото">›</button>
+  </div>
+
+  <footer>
+    <span>Фото хранятся локально в папке <code>photos/</code></span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
