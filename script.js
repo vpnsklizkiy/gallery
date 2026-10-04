@@ -1,9 +1,9 @@
 ﻿/*
-  Р’РђР–РќРћ:
-  GitHub Pages РЅРµ СѓРјРµРµС‚ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїРѕР»СѓС‡Р°С‚СЊ СЃРїРёСЃРѕРє С„Р°Р№Р»РѕРІ РёР· РїР°РїРєРё photos/.
-  РџРѕСЌС‚РѕРјСѓ РґРѕР±Р°РІСЊС‚Рµ РёРјРµРЅР° СЃРІРѕРёС… С„РѕС‚РѕРіСЂР°С„РёР№ РІ РјР°СЃСЃРёРІ PHOTOS РЅРёР¶Рµ.
+  ВАЖНО:
+  GitHub Pages не умеет автоматически получать список файлов из папки photos/.
+  Поэтому добавьте имена своих фотографий в массив PHOTOS ниже.
 
-  РџСЂРёРјРµСЂ:
+  Пример:
   const PHOTOS = [
   "0DTnE9yFBiIoD9ernFbX9vPbTIstTJkM_SwhdOoib0zosm5QFVq-sj6ZtTOK6gIOG08hDEvQv3q7GEG1ghWQ4Fzr.jpg",
   "3I7A7075.JPG",
@@ -203,8 +203,8 @@
   "VpSzpfThhWkY-fMilxsCeAD4U1axQprErpfxDQwlpFETd7lXnt8eyf3rtw0ode3uF7vX2WyWTSyzDFgJw82WbgXC.jpg",
 ];
 
-  РњРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ JPG, JPEG, PNG, WEBP, GIF, AVIF Рё РґСЂСѓРіРёРµ С„РѕСЂРјР°С‚С‹,
-  РєРѕС‚РѕСЂС‹Рµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚ Р±СЂР°СѓР·РµСЂ.
+  Можно использовать JPG, JPEG, PNG, WEBP, GIF, AVIF и другие форматы,
+  которые поддерживает браузер.
 */
 
 const PHOTOS = [
@@ -458,7 +458,7 @@ function renderGallery() {
   gallery.innerHTML = "";
 
   if (!PHOTOS.length) {
-    galleryInfo.textContent = "0 С„РѕС‚РѕРіСЂР°С„РёР№";
+    galleryInfo.textContent = "0 фотографий";
     emptyState.hidden = false;
     selectAllBtn.disabled = true;
     return;
@@ -473,7 +473,7 @@ function renderGallery() {
     card.className = "photo-card";
     card.dataset.index = index;
     card.tabIndex = 0;
-    card.setAttribute("aria-label", `РћС‚РєСЂС‹С‚СЊ ${displayName(filename)}`);
+    card.setAttribute("aria-label", `Открыть ${displayName(filename)}`);
 
     const img = document.createElement("img");
     img.src = previewUrl(filename);
@@ -483,13 +483,13 @@ function renderGallery() {
 
     const label = document.createElement("label");
     label.className = "select-box";
-    label.title = "Р’С‹Р±СЂР°С‚СЊ С„РѕС‚Рѕ";
+    label.title = "Выбрать фото";
     label.addEventListener("click", (event) => event.stopPropagation());
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = selected.has(index);
-    checkbox.setAttribute("aria-label", `Р’С‹Р±СЂР°С‚СЊ ${displayName(filename)}`);
+    checkbox.setAttribute("aria-label", `Выбрать ${displayName(filename)}`);
     checkbox.addEventListener("change", () => toggleSelection(index, checkbox.checked));
 
     const mark = document.createElement("span");
@@ -499,9 +499,9 @@ function renderGallery() {
     download.className = "card-download";
     download.href = photoUrl(filename);
     download.download = displayName(filename);
-    download.title = "РЎРєР°С‡Р°С‚СЊ";
-    download.setAttribute("aria-label", `РЎРєР°С‡Р°С‚СЊ ${displayName(filename)}`);
-    download.innerHTML = "в†“";
+    download.title = "Скачать";
+    download.setAttribute("aria-label", `Скачать ${displayName(filename)}`);
+    download.innerHTML = "↓";
     download.addEventListener("click", (event) => event.stopPropagation());
 
     label.append(checkbox, mark);
@@ -525,10 +525,10 @@ function renderGallery() {
 function pluralPhotos(number) {
   const n = Math.abs(number) % 100;
   const n1 = n % 10;
-  if (n > 10 && n < 20) return "С„РѕС‚РѕРіСЂР°С„РёР№";
-  if (n1 > 1 && n1 < 5) return "С„РѕС‚РѕРіСЂР°С„РёРё";
-  if (n1 === 1) return "С„РѕС‚РѕРіСЂР°С„РёСЏ";
-  return "С„РѕС‚РѕРіСЂР°С„РёР№";
+  if (n > 10 && n < 20) return "фотографий";
+  if (n1 > 1 && n1 < 5) return "фотографии";
+  if (n1 === 1) return "фотография";
+  return "фотографий";
 }
 
 function toggleSelection(index, checked) {
@@ -546,7 +546,7 @@ function updateSelectionUI() {
   downloadSelectedBtn.disabled = count === 0;
 
   const allSelected = PHOTOS.length > 0 && count === PHOTOS.length;
-  selectAllBtn.textContent = allSelected ? "РЎРЅСЏС‚СЊ РІС‹РґРµР»РµРЅРёРµ" : "Р’С‹Р±СЂР°С‚СЊ РІСЃРµ";
+  selectAllBtn.textContent = allSelected ? "Снять выделение" : "Выбрать все";
 }
 
 selectAllBtn.addEventListener("click", () => {
@@ -564,14 +564,14 @@ downloadSelectedBtn.addEventListener("click", async () => {
   if (!selected.size) return;
 
   /*
-    Р’ РїРѕР»РЅРѕСЃС‚СЊСЋ СЃС‚Р°С‚РёС‡РµСЃРєРѕРј СЃР°Р№С‚Рµ Р±РµР· РІРЅРµС€РЅРёС… Р±РёР±Р»РёРѕС‚РµРє Р±СЂР°СѓР·РµСЂ РЅРµ РјРѕР¶РµС‚
-    СЃРѕР±СЂР°С‚СЊ ZIP "РЅР° Р»РµС‚Сѓ". РџРѕСЌС‚РѕРјСѓ РІС‹Р±СЂР°РЅРЅС‹Рµ С„Р°Р№Р»С‹ СЃРєР°С‡РёРІР°СЋС‚СЃСЏ РїРѕ РѕРґРЅРѕРјСѓ.
-    Р‘СЂР°СѓР·РµСЂ РјРѕР¶РµС‚ РѕРґРёРЅ СЂР°Р· РїРѕРїСЂРѕСЃРёС‚СЊ СЂР°Р·СЂРµС€РёС‚СЊ РјРЅРѕР¶РµСЃС‚РІРµРЅРЅС‹Рµ Р·Р°РіСЂСѓР·РєРё.
+    В полностью статическом сайте без внешних библиотек браузер не может
+    собрать ZIP "на лету". Поэтому выбранные файлы скачиваются по одному.
+    Браузер может один раз попросить разрешить множественные загрузки.
   */
   const indexes = [...selected].sort((a, b) => a - b);
   const originalText = downloadSelectedBtn.innerHTML;
   downloadSelectedBtn.disabled = true;
-  downloadSelectedBtn.textContent = "РЎРєР°С‡РёРІР°РЅРёРµвЂ¦";
+  downloadSelectedBtn.textContent = "Скачивание…";
 
   for (const index of indexes) {
     triggerDownload(PHOTOS[index]);
@@ -611,15 +611,15 @@ function closeViewer() {
 
 function loadViewerImage() {
   const filename = PHOTOS[currentIndex];
-  // РЎРЅР°С‡Р°Р»Р° РјРіРЅРѕРІРµРЅРЅРѕ РїРѕРєР°Р·С‹РІР°РµРј Р»С‘РіРєРѕРµ РїСЂРµРІСЊСЋ.
+  // Сначала мгновенно показываем лёгкое превью.
   viewerImage.src = previewUrl(filename);
   viewerImage.alt = displayName(filename);
-  viewerCounter.textContent = `${currentIndex + 1} / ${PHOTOS.length} В· ${displayName(filename)}`;
+  viewerCounter.textContent = `${currentIndex + 1} / ${PHOTOS.length} · ${displayName(filename)}`;
   viewerDownloadBtn.href = photoUrl(filename);
   viewerDownloadBtn.download = displayName(filename);
   resetTransform();
 
-  // Р—Р°С‚РµРј РЅРµР·Р°РјРµС‚РЅРѕ РїРѕРґРјРµРЅСЏРµРј РїСЂРµРІСЊСЋ РїРѕР»РЅРѕСЂР°Р·РјРµСЂРЅС‹Рј РѕСЂРёРіРёРЅР°Р»РѕРј.
+  // Затем незаметно подменяем превью полноразмерным оригиналом.
   const full = new Image();
   full.decoding = "async";
   full.src = photoUrl(filename);
@@ -748,4 +748,3 @@ document.addEventListener("keydown", (event) => {
 });
 
 renderGallery();
-
